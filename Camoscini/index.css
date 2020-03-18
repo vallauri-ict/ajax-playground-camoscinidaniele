@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+*{
+    padding: 0;
+    margin: 0;
+	font-family: "Open Sans", "Arial", "Verdana", sans-serif;
+}
+
+/* SECTION 1 */
+section:nth-of-type(1) {
+    background-color: #2c2e31;
+	height: 550px;
+}
+section:nth-of-type(1) > *{
+	background-color: inherit;
+}
+
+h1{
+    text-align: center;
+    font-size: 48px;
+    text-align: center;
+    color: white;
+    font-weight: 100;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+#profilo{
+    background-position: -96px;
+}
+#pInfo{
+    display: normal; 
+    font-size: 38px;
+}
+#phrase{
+    font-size: 18px;
+    color: #999;
+}
+
+#divParametres{
+    width: 500px;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    color: white;
+}
+#nPersone {
+    display: grid;
+    grid-template-columns: auto 300px;
+    grid-column-gap: 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+#nPersone div input,span{
+    display: inline-block;
+}
+#rangeRisultati {
+    width: 240px;
+}
+#nPersone div span{
+    text-align: center;
+    width: 40px;
+    margin-left: 10px;
+}
+table *{
+    color: white;
+}
+table thead tr th h3{
+    text-align: center;
+}
+
+#btnGenerate{
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 40px;
+    font-weight: bold;
+    background-color: #2c2e31;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 16pt;
+    color: white;
+}
+/* FINE SECTION 1 */
+
+/* SECTION 2 */
+#divImg{
+    border-radius: 50%;
+    border: 1px solid grey;
+    width: 145px;
+    height: 140px;
+    padding: 0px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#img{
+    border-radius: 50%;
+    border: 0;
+    margin-top: 5px;
+    width: 135px;
+    height: 130px;
+}
+
+#divUser{
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#nome, #cognome, #email, #email, #bDate, #telefono, #age, #location, #password{
+    font-size: 38px;
+    font-weight: 100;
+}
+
+#divRandomUser{
+    text-align: center;
+    border: 1px solid black;
+    padding: 10px;
+    width: 730px;
+    height: 420px;
+    background-color: white;
+    margin: -180px auto;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#divGenere{
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#divNazione{
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#divNazione tr th p{
+    text-align: center;
+}
+
+#divNazione tr td{
+    padding: 5px;
+}
+
+#divNav{
+    margin: 0 auto;
+    background-color: white;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    list-style-type: none;
+}
+
+#divNav li{
+    display: inline-block;
+    margin: 20px;
+    width: 40px;
+    height: 48px;
+    background-image: url("card_icons.png");
+    transition: all .25s ease-out;
+    background-size: 378px;
+	background-position-y: -48px; 
+}
+#profilo{
+    background-position-x: 0;
+}
+#emailImg{
+    background-position-x: -68px;
+}
+#birthday{
+    background-position-x: -135px;
+}
+#map{
+    background-position-x: -203px;
+}
+#cell{
+    background-position-x: -270px;
+}
+#passwordImg{
+    background-position-x: -338px;
+}
+
+#frecciaSX{
+    float: left;
+    margin-left: 0px;
+    margin-top: 20px;
+    position: relative;
+    bottom: 50px;
+
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent; 
+    border-right: 25px solid #000;
+}
+#frecciaDX{
+    float: right;
+    margin-right: 0px;
+    margin-top: 20px;
+    position: relative;
+    bottom: 50px;
+
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent; 
+    border-left: 25px solid #000;
+}
+
+#progressBar{
+    margin-top: 20px;
+    text-align: center;
+    background-color: green; 
+    color: white; 
+    font-size: 12pt;
+    transition: all .3s ease-out;
+}
+
+/* FINE SECTION 2 */
+
+/*Personalizzazione range bar*/
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 8px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: green ;
+    margin-top: -4px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
