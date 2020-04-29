@@ -6,31 +6,57 @@
     <title>02</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
+    <h1>Finance</h1>
     <div id="wrapper">
         <nav class="navbar navbar-dark bg-primary">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="txtSearch">
-            <select id="_symbol" class="btn btn-secondary dropdown-toggle">
-            <option value="IBM">IBM</option>
-            <option value="MSFT">Microsoft</option>
-            <option value="BABA">Alibaba</option>
-            <option value="SNE">Sony</option>
-            <option value="XIACF">Xiaomi</option>
-            </select>
-          </form>
+          <div class="conteiner w-100">
+               <div class="row h-min">
+                  <div class="col"><p>seleziona l'azienda per visualizzarne i dati</p></div>
+                  <div class="col"><p>cerca una azienda per visualizzarne i dati</p></div>
+                  <div class="col rig"><p>seleziona per visualizzare grafico</p></div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                    <select id="_symbol" class="btn btn-secondary dropdown-toggle w-50">
+                    <option value="IBM">IBM</option>
+                    <option value="MSFT">Microsoft</option>
+                    <option value="BABA">Alibaba</option>
+                    <option value="SNE">Sony</option>
+                    <option value="XIACF">Xiaomi</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search" aria-label="Search" id="txtSearch">
+                  </div>
+                  <div class="col rig">
+                    <select id="comboChart" class="btn btn-secondary dropdown-toggle w-50">
+                    </select>
+                  </div>
+              </div>
+          </div>
         </nav>
-        <div id="quote">
-            
-            <table cellspacing="0" cellpadding="3" class="table" id="tab">
-                <thead class="thead-dark" id="head">
-                </thead>
-            </table>
+        <div id="quote" class="conteiner-fluid">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-9">
+                    <table cellspacing="0" cellpadding="3" class="table" id="tab">
+                        <thead class="thead-dark" id="head">
+                        </thead>
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+        <div class="container">
+            <canvas id="myChart"></canvas>
         </div>
     </div>
 </body>

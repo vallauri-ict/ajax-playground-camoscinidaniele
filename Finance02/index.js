@@ -1,8 +1,11 @@
 $(document).ready(function () {
     let _symbol=$("#_symbol");
     let _search=$("#txtSearch");
+    let _comboChart=$("#comboChart");
+    let myChart;
     
     _symbol.prop("selectedIndex","-1");
+    _comboChart.prop("selectedIndex","2");
     _search.prop("value","");
     _symbol.on("change", function(){
         getGlobalQuotes(this.value)
@@ -12,6 +15,15 @@ $(document).ready(function () {
             getSymbolSearch(this.value);
         }
     });
+    _comboChart.on("change",function(){
+        chartGenerator(this.value);
+    })
+    $.getJSON("https://www.alphavantage.co/query?function=SECTOR&apikey=LN8NL8FN2L8Z48BK", function (data) {
+       for(let key in data){
+           if(key!="Meta Data")
+            $("<option>").text(key).prop("value",key).appendTo(_comboChart);
+       }
+   })
 
 function getGlobalQuotes(symbol) {
     let url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=LN8NL8FN2L8Z48BK";
@@ -21,15 +33,9 @@ function getGlobalQuotes(symbol) {
             tableHeadFill(globalQuoteData);
             $(".rowr").remove();
             let _tr=$("<tr>").addClass("rowr").appendTo($("#tab"));
-            $("<td>").text(data["Global Quote"]["01. symbol"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["08. previous close"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["02. open"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["05. price"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["07. latest trading day"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["09. change"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["04. low"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["03. high"]).appendTo(_tr);;
-            $("<td>").text(globalQuoteData["06. volume"]).appendTo(_tr);;
+            for(let key in globalQuoteData){
+                $("<td>").text(data["Global Quote"]["01. symbol"]).appendTo(_tr);
+            }
         }
     );
 }
@@ -44,25 +50,44 @@ function getSymbolSearch(keywords){
                 $(".rowr").remove();
                 for(let i=0; i<bestMatchesData.length; i++){
                     let _tr=$("<tr>").addClass("rowr").appendTo($("#tab"));
-                    $("<td>").text(bestMatchesData[i]["1. symbol"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["2. name"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["3. type"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["4. region"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["5. marketOpen"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["6. marketClose"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["7. timezone"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["8. currency"]).appendTo(_tr);
-                    $("<td>").text(bestMatchesData[i]["9. matchScore"]).appendTo(_tr);
+                    for(let key in bestMatchesData[i]){
+                        $("<td>").text(bestMatchesData[i][key]).appendTo(_tr);
+                    }
                 }
-            }
-        )  
+            })
     }
     catch {
         alert("Numero massimo di richieste al minuto raggiunte");
     }
 }
 
-
+function chartGenerator(choice){
+    if(myChart!=null)
+        myChart.destroy();
+    $.getJSON("http://localhost:3000/sectors",function(dataSectors){
+        $.getJSON("http://localhost:3000/chart",function(dataChart){
+        dataChart["data"]["labels"]=[];
+        dataChart["data"]["datasets"]["data"]=[];
+        let i=0;
+        dataChart["data"]["datasets"][0]["label"]="Valori percentuali";   
+        for(let key in dataSectors[choice]){
+            dataChart["data"]["labels"][i]=key;
+            dataChart["data"]["datasets"][0]["data"][i]=dataSectors[choice][key].substring(0,dataSectors[choice][key].length-2);
+            if(dataChart["data"]["datasets"][0]["data"][i]>0){
+                dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(0,255,0,0.5)";
+                dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(0,255,0)";
+            }
+            else{
+                dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(255,0,0,0.5)";
+                dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(255,0,0)";
+            }
+            i++;
+        }
+        let ctx = document.getElementById('myChart').getContext('2d');
+        myChart = new Chart(ctx, dataChart);
+        })
+    })
+}
 
 function tableHeadFill(array){
     $(".cap").remove();
