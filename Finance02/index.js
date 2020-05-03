@@ -3,6 +3,9 @@ $(document).ready(function () {
     let _search=$("#txtSearch");
     let _comboChart=$("#comboChart");
     let myChart;
+    let _btnDownload;
+    let _chartCont=$("#chartContainer");
+    let ctx = document.getElementById('myChart').getContext('2d');
     
     _symbol.prop("selectedIndex","-1");
     _comboChart.prop("selectedIndex","2");
@@ -34,7 +37,7 @@ function getGlobalQuotes(symbol) {
             $(".rowr").remove();
             let _tr=$("<tr>").addClass("rowr").appendTo($("#tab"));
             for(let key in globalQuoteData){
-                $("<td>").text(data["Global Quote"]["01. symbol"]).appendTo(_tr);
+                $("<td>").text(data["Global Quote"][key]).appendTo(_tr);
             }
         }
     );
@@ -62,31 +65,39 @@ function getSymbolSearch(keywords){
 }
 
 function chartGenerator(choice){
-    if(myChart!=null)
+    if(_btnDownload==null){
+        _btnDownload=$("<a>").prop({download:"ChartImage.jpg",class:"btn btn-primary float-right bg-flat-color-1"}).appendTo(_chartCont);
+        $("<i>").addClass("fa fa-download").appendTo(_btnDownload);
+    }
+    if(myChart!=null){
         myChart.destroy();
-    $.getJSON("http://localhost:3000/sectors",function(dataSectors){
-        $.getJSON("http://localhost:3000/chart",function(dataChart){
-        dataChart["data"]["labels"]=[];
-        dataChart["data"]["datasets"]["data"]=[];
-        let i=0;
-        dataChart["data"]["datasets"][0]["label"]="Valori percentuali";   
-        for(let key in dataSectors[choice]){
-            dataChart["data"]["labels"][i]=key;
-            dataChart["data"]["datasets"][0]["data"][i]=dataSectors[choice][key].substring(0,dataSectors[choice][key].length-2);
-            if(dataChart["data"]["datasets"][0]["data"][i]>0){
-                dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(0,255,0,0.5)";
-                dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(0,255,0)";
+    }
+    $.getJSON("http://localhost:3000/sector",function(dataSectors){
+        let dataChart_=inviaRichiesta("GET","http://localhost:3000/chart",false);
+        dataChart_.done(function(dataChart){
+            dataChart["data"]["labels"]=[];
+            dataChart["data"]["datasets"]["data"]=[];
+            let i=0;
+            let cazzo;
+            dataChart["data"]["datasets"][0]["label"]="Valori percentuali";   
+            for(let key in dataSectors[choice]){
+                dataChart["data"]["labels"][i]=key;
+                dataChart["data"]["datasets"][0]["data"][i]=dataSectors[choice][key].substring(0,dataSectors[choice][key].length-2);
+                if(dataChart["data"]["datasets"][0]["data"][i]>0){
+                    dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(0,255,0,0.5)";
+                    dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(0,255,0)";
+                }
+                else{
+                    dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(255,0,0,0.5)";
+                    dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(255,0,0)";
+                }
+                i++;
             }
-            else{
-                dataChart["data"]["datasets"][0]["backgroundColor"][i]="rgba(255,0,0,0.5)";
-                dataChart["data"]["datasets"][0]["borderColor"][i]="rgb(255,0,0)";
-            }
-            i++;
-        }
-        let ctx = document.getElementById('myChart').getContext('2d');
-        myChart = new Chart(ctx, dataChart);
+            myChart = new Chart(ctx, dataChart);
+            _btnDownload.prop("href",myChart.toBase64Image());  
         })
-    })
+        
+        })
 }
 
 function tableHeadFill(array){
@@ -96,5 +107,17 @@ function tableHeadFill(array){
         $("<th>").addClass("cap").text(head[i].substr(3)).appendTo($("#head"))
     }
 }
+
+function inviaRichiesta(method, url, parameters = "", async = true) {
+        return $.ajax({ //PROMISE PER RICHESTA AJAX
+            type: method,
+            url: url,
+            data: parameters,
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            dataType: "json",
+            timeout: 5000,
+            async: async
+        });
+    }
 })
 

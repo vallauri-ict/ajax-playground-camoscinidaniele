@@ -24,34 +24,40 @@
     "chart": {
         "type": "bar",
         "data": {
-			"labels": [],
+			"labels": ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 			"datasets":[{
-				"barThickness": 12,
-				"maxBarThickness": 15,
-                "minBarLength": 2,
-				"data":[],
-					"backgroundColor": [],
-					"borderColor": []
+				"barPercentage": 0.5,
+				"barThickness": 6,
+				"maxBarThickness": 8,
+				"minBarLength": 2,
+				"data":[ [10, 20, 30, 40, 50, 60, 70]],
+					"backgroundColor": [
+						"rgba(255, 99, 132, 0.2)",
+						"rgba(54, 162, 235, 0.2)",
+						"rgba(255, 206, 86, 0.2)",
+						"rgba(75, 192, 192, 0.2)",
+						"rgba(153, 102, 255, 0.2)",
+						"rgba(255, 159, 64, 0.2)"
+					],
+					"borderColor": [
+						"rgba(255, 99, 132, 1)",
+						"rgba(54, 162, 235, 1)",
+						"rgba(255, 206, 86, 1)",
+						"rgba(75, 192, 192, 1)",
+						"rgba(153, 102, 255, 1)",
+						"rgba(255, 159, 64, 1)"
+					]
 				}]
         },
-        "options": {
-            "scales": {
-                "xAxes": [
-                    {
-                        "ticks": {
-                            "beginAtZero": true
-                        }
-                    }
-                ]
-            }}
+        "options": {}
     },
-    "sectors":{
+    "sector":{
         "Meta Data": {
             "Information": "US Sector Performance (realtime & historical)",
             "Last Refreshed": "2020-04-22 11:48:05 US/Eastern"
         },
         "Rank A: Real-Time Performance": {
-            "Energy": "3.38%",  
+            "Energy": "3.38%",
             "Information Technology": "2.82%",
             "Utilities": "2.45%",
             "Communication Services": "2.42%",
