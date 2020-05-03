@@ -78,7 +78,6 @@ function chartGenerator(choice){
             dataChart["data"]["labels"]=[];
             dataChart["data"]["datasets"]["data"]=[];
             let i=0;
-            let cazzo;
             dataChart["data"]["datasets"][0]["label"]="Valori percentuali";   
             for(let key in dataSectors[choice]){
                 dataChart["data"]["labels"][i]=key;
