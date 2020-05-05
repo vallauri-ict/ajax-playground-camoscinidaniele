@@ -4,6 +4,7 @@ $(document).ready(function () {
     let _comboChart=$("#comboChart");
     let myChart;
     let _btnDownload;
+    let _btnDrive=null;
     let _chartCont=$("#chartContainer");
     let ctx = document.getElementById('myChart').getContext('2d');
     
@@ -68,6 +69,8 @@ function chartGenerator(choice){
     if(_btnDownload==null){
         _btnDownload=$("<a>").prop({download:"ChartImage.jpg",class:"btn btn-primary float-right bg-flat-color-1"}).appendTo(_chartCont);
         $("<i>").addClass("fa fa-download").appendTo(_btnDownload);
+        _btnDrive=$("<a>").prop({class:"btn btn-primary float-right bg-flat-color-1"}).css({marginLeft:"70px!important;"}).appendTo(_chartCont);
+        $("<i>").addClass("fab fa-google-drive").appendTo(_btnDrive);
     }
     if(myChart!=null){
         myChart.destroy();
@@ -93,7 +96,7 @@ function chartGenerator(choice){
                 i++;
             }
             myChart = new Chart(ctx, dataChart);
-            _btnDownload.prop("href",myChart.toBase64Image());  
+            _btnDownload.prop("href",myChart.toBase64Image());
         })
         
         })
@@ -108,15 +111,15 @@ function tableHeadFill(array){
 }
 
 function inviaRichiesta(method, url, parameters = "", async = true) {
-        return $.ajax({ //PROMISE PER RICHESTA AJAX
-            type: method,
-            url: url,
-            data: parameters,
-            contentType: "application/x-www-form-urlencoded;charset=utf-8",
-            dataType: "json",
-            timeout: 5000,
-            async: async
-        });
-    }
+    return $.ajax({ //PROMISE PER RICHESTA AJAX
+        type: method,
+        url: url,
+        data: parameters,
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+        dataType: "json",
+        timeout: 5000,
+        async: async
+    });
+}
 })
 
