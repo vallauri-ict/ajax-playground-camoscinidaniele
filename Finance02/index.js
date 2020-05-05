@@ -76,7 +76,7 @@ function chartGenerator(choice){
         myChart.destroy();
     }
     $.getJSON("http://localhost:3000/sector",function(dataSectors){
-        let dataChart_=inviaRichiesta("GET","http://localhost:3000/chart",false);
+        let dataChart_=inviaRichiesta("GET","http://localhost:3000/chart",{},false);
         dataChart_.done(function(dataChart){
             dataChart["data"]["labels"]=[];
             dataChart["data"]["datasets"]["data"]=[];
@@ -96,7 +96,7 @@ function chartGenerator(choice){
                 i++;
             }
             myChart = new Chart(ctx, dataChart);
-            _btnDownload.prop("href",myChart.toBase64Image());
+            setTimeout(download,200);
         })
         
         })
@@ -108,6 +108,10 @@ function tableHeadFill(array){
     for(let i=0; i<head.length;i++){
         $("<th>").addClass("cap").text(head[i].substr(3)).appendTo($("#head"))
     }
+}
+
+function download(){
+    _btnDownload.prop("href",myChart.toBase64Image());
 }
 
 function inviaRichiesta(method, url, parameters = "", async = true) {
