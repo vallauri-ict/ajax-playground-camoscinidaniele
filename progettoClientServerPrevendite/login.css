@@ -1,0 +1,26 @@
+html{
+    height: 90%;
+    width: 100%;
+}
+
+body{
+    height: 90%;
+    width: 100%;
+    background-image: url(img/bg.gif);
+    background-position: center;
+}
+h1{
+    color:mintcream;
+}
+#login{
+    margin-top: 100px;
+}
+.icona-rossa{
+	color: #dc3545;  /* colore usato da is-invalid */
+	border:1px solid #dc3545; 
+	border-right:transparent;
+}
+.central{
+    background-color: rgba(255,255,255,0.4);
+    padding: 30px;
+}

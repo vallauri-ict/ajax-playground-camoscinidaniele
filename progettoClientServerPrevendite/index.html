@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sistema Bancario Italiano</title>	
+	<link rel="icon" href="img/icoVallauri.png" type="image/png"/>
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" charset="utf8"></script>
+	
+	<link rel="stylesheet" href="index.css">
+	<script src="libreria.js"></script>		
+	<script src="index.js"></script>			
+</head>
+
+
+<body>
+    <div class="container-fluid" id="wrapper">
+        <div class="row" style="margin-top:2%">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <div class="alert bg-primary" id="divTitolo">
+                    <h1 class="text-center">			
+                        Discoland
+                    </h1>
+                    <h6 class="text-center">
+                    Attraverso questo portale puoi osservare gli sviluppi delle tue vendite e dei tuoi sotto PR
+                    </h6>
+                </div>
+
+
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+          <a class="navbar-brand text-primary" href="#" id="PrIdent" style="margin-right: 30%!important"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link"  id="yourData">I tuoi dati</a>
+              </li>
+              <div class="nav-item disabled">
+                <select id="sottoPR" class="btn btn-dark dropdown-toggle nav-link">
+                </select>
+              </div>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="btnAggiungi">Aggiungi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="btnRimuovi">Rimuovi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" id="btnGestioneEvento">Gestione evento</a>
+              </li>
+            </ul>
+            <button type="button" class="btn btn-default btn" id="btnLogout" style="color:white">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+            </button>
+          </div>
+        </nav>
+        <div class="row" id="insertWrapper">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4" id="insertWrapper2">
+                <form>
+                    <label for="txtNome">Nome e cognome: </label>
+                    <input type="text" hint="inserisci il nome e il cognome da inserire" id="txtNome" class="form-control"/>
+                    <label for="dataPicker">Data di nascita: </label><br>
+                    <input type="date" id="dataPicker"/><br><br>
+                    <div class="alert alert-success alert-dismissible collapse" id="lblSuccessin">			
+					   <button type="button" class="close" >&times;</button>
+					   <strong>Operazione andata a buon fine</strong> la persona è stata aggiunta
+				    </div>
+                    <div class="alert alert-danger alert-dismissible collapse" id="lblDangerin">			
+					   <button type="button" class="close" >&times;</button>
+					   <strong>Errore nella connessione al database</strong> controlla i dati inseriti e riprova
+				    </div>
+                    <button type="button" class="btn btn-primary" id="btnInsert">Inserisci</button>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row" style="margin: 2%" id="mainRow">
+            <div class="col-sm-7">
+                <table class="table" id="table">
+                  <thead>
+                    <tr class="bg-primary">
+                      <th scope="col">Nominativo</th>
+                      <th scope="col">Data di nascita</th>
+                      <th scope="col">Elimina</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4" id="panelStats">
+                <h2 id="statsHead" class="text-center">Le tue statistiche</h2><br>
+                <br><br>
+                <p><b>Persone inserite: </b><span id="spanPersone"></span></p><br>
+                <p><b>Soldi : </b><span id="spanSoldi"></span></p><br>
+                <p><b>persone inserite dai sotto PR : </b><span id="spanInseritiSottoPr"></span></p><br>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible collapse" id="lblSuccessRemove">			
+           <button type="button" class="close" >&times;</button>
+           <strong>Operazione andata a buon fine</strong> la persona è stata rimossa
+        </div>
+        <div class="alert alert-danger alert-dismissible collapse" id="lblDangerRemove">			
+           <button type="button" class="close" >&times;</button>
+           <strong id="mexError"></strong>
+        </div>
+    </div>
+</body>
+</html>

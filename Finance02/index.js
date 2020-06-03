@@ -22,12 +22,13 @@ $(document).ready(function () {
     _comboChart.on("change",function(){
         chartGenerator(this.value);
     })
+
     $.getJSON("https://www.alphavantage.co/query?function=SECTOR&apikey=LN8NL8FN2L8Z48BK", function (data) {
        for(let key in data){
            if(key!="Meta Data")
             $("<option>").text(key).prop("value",key).appendTo(_comboChart);
        }
-   })
+    })
 
 function getGlobalQuotes(symbol) {
     let url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=LN8NL8FN2L8Z48BK";
@@ -70,7 +71,7 @@ function chartGenerator(choice){
         _btnDownload=$("<a>").prop({download:"ChartImage.jpg",class:"btn btn-primary float-right bg-flat-color-1"}).appendTo(_chartCont);
         $("<i>").addClass("fa fa-download").appendTo(_btnDownload);
         _btnDrive=$("<a>").prop({class:"btn btn-primary float-right bg-flat-color-1"}).css({marginLeft:"70px!important;"}).appendTo(_chartCont);
-        $("<i>").addClass("fab fa-google-drive").appendTo(_btnDrive);
+        $("<i>").addClass("fab fa-google-drive").appendTo(_btnDrive).on("click",uploadDrive);
     }
     if(myChart!=null){
         myChart.destroy();
